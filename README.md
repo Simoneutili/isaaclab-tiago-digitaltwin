@@ -93,14 +93,6 @@ The Gazebo simulation acts as a surrogate for the real robot and must be running
 ros2 launch tiago_gazebo tiago_gazebo.launch.py is_public_sim:=True [arm_type:=no-arm]
 ```
 
-**Activate the Bridge Node:**
-
-Establish communication between Gazebo and Isaac Lab:
-```bash
-ros2 run tiago_gazebo bridge_velocities_reset.py
-```
-
-
 ## Running the RL and Digital Twin Training
 
 _All commands below should be executed from inside the `IsaacLabTiagoExtension` directory._
@@ -111,7 +103,7 @@ Run the hyperparameter tuning process using the provided configuration file and 
 ```bash
 python scripts/TIAGO_RL/DigitalTwin/hyperparameter_tuning/tuner.py \
     --run_mode local \
-    --cfg_file TIAGO_RL/tiago_RL/DigitalTwin/hyperparameter_tuning/tiago_cfg_file.py \
+    --cfg_file TIAGO_RLDigitalTwin/hyperparameter_tuning/tiago_cfg_file.py \
     --cfg_class TiAGO_SB3SAC_JobCfg
 ```
 
@@ -126,7 +118,7 @@ tensorboard --logdir logs/sb3/Isaac-DigitalTwin-TiAGO-v0
 
 Before training, select the optimal set of hyperparameters and update the agent YAML file located in:
 ```
-scripts/TIAGO_RL/tiago_RL/DigitalTwin/agents
+scripts/TIAGO_RL/DigitalTwin/agents
 ```
 
 #### Training Options
