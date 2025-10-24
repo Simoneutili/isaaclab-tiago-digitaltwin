@@ -25,8 +25,33 @@ This work presents an architecture that:
 
 ![Isaac Lab](./images/IsaacLabEnvs.jpg)
 ## Installation and Setup
+### 1. Python Environment Setup for Isaac Lab
 
-### 1. Setup TIAGo ROS2 Gazebo Simulation
+**IMPORTANT:** To run Isaac Lab scripts outside the official Isaac Lab directory, you must set up a Python environment (e.g., Anaconda/Miniconda) that points to the Isaac Lab extensions. Without this setup, the modules will not be found.
+
+**Create and activate a Python environment:**
+```bash
+conda create -n isaaclab_env python=3.10
+conda activate isaaclab_env
+```
+
+**Point to Isaac Lab installation:**
+
+Make sure your environment variables are correctly set to point to your Isaac Lab installation. Add the following to your `.bashrc` or set them in your terminal session:
+```bash
+export ISAACLAB_PATH=/path/to/your/IsaacLab
+export PYTHONPATH=$ISAACLAB_PATH:$PYTHONPATH
+```
+
+### 2. Install the TIAGO_RL Package
+
+Navigate to the TIAGO_RL directory and install the package in editable mode:
+```bash
+cd IsaacLabTiagoExtension/scripts/TIAGO_RL
+pip install -e .
+```
+
+### 3. Setup TIAGo ROS2 Gazebo Simulation
 
 Before running any Isaac Lab scripts, you must set up and launch the TIAGo Gazebo simulation workspace.
 
@@ -59,11 +84,20 @@ Before running any application, source the workspace:
 source ~/tiago_public_ws/install/setup.bash
 ```
 
+You can also add this to your `.bashrc` for automatic sourcing.
+
 **Launch Gazebo Simulation:**
 
 The Gazebo simulation acts as a surrogate for the real robot and must be running before executing Isaac Lab scripts:
 ```bash
 ros2 launch tiago_gazebo tiago_gazebo.launch.py is_public_sim:=True [arm_type:=no-arm]
+```
+
+**Activate the Bridge Node:**
+
+Establish communication between Gazebo and Isaac Lab:
+```bash
+ros2 run tiago_gazebo bridge_velocities_reset.py
 ```
 
 
