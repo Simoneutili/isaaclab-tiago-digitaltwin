@@ -53,9 +53,9 @@ the following scripts are runned from inside IsaacLabTiagoExtension:
 
 RUN HYPERPARAMETER TUNING PROCESS:
 
-python scripts/TIAGO_RL/Tiago_RL/IsaacLabDT/hyperparameter_tuning/tuner.py \
+python scripts/TIAGO_RL/DigitalTWin/hyperparameter_tuning/tuner.py \
     --run_mode local \
-    --cfg_file TIAGO_RL/Tiago_RL/IsaacLabDT/hyperparameter_tuning/tiago_cfg_file.py \
+    --cfg_file TIAGO_RL/DigitalTwin/hyperparameter_tuning/tiago_cfg_file.py \
     --cfg_class TiAGO_SB3SAC_JobCfg
 
 TENSORBOARD METRICS VISUALIZATION: 
@@ -66,13 +66,13 @@ PICK THE SET OF HYPERPARAMETERS THAT WORK BEST FOR YOU AND PUT THEM IN THE AGENT
 
 RUN TRAINING WITH THE BEST HYPERPARAMETERS:
 -from scratch: 
-python scripts/TIAGO_RL/Tiago_RL/IsaacLabDT/SB3/deploy.py --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 256
+python scripts/TIAGO_RL/DigitalTwinSB3/deploy.py --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 256
 -pretrained model: 
-python scripts/TIAGO_RL/Tiago_RL/IsaacLabDT/SB3/pretrain.py     --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 64 --headless --checkpoint_path /home/simone/IsaacLab/logs/sb3/Isaac-DigitalTwin-TiAGO-v0/best/model.zip
+python scripts/TIAGO_RL/DigitalTwin/SB3/pretrain.py     --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 64 --headless --checkpoint_path /home/simone/IsaacLab/logs/sb3/Isaac-DigitalTwin-TiAGO-v0/best/model.zip
 
 DEPLOY TRAINED POLICY: 
 
-python scripts/TIAGO_RL/Tiago_RL/IsaacLabDT/SB3/deploy.py     --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 1
+python scripts/TIAGO_RL/DigitalTwin/SB3/deploy.py     --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 1
 
 
 
@@ -83,8 +83,8 @@ python scripts/TIAGO_RL/Tiago_RL/IsaacLabDT/SB3/deploy.py     --task Isaac-Digit
 DOCKER_PREFIX = "/workspace/isaaclab/"
 BASE_DIR = os.path.expanduser("~")
 PYTHON_EXEC = "./isaaclab.sh -p"
-WORKFLOW = "TIAGO_RL/Tiago_RL/IsaacLabDT/SB3/train.py"
-# WORKFLOW = "TIAGO_RL/Tiago_RL/IsaacLabDT/RL_GAMES/train.py"
+WORKFLOW = "TIAGO_RL/DigitalTwinT/SB3/train.py"
+# WORKFLOW = "TIAGO_RL/DigitalTwin/RL_GAMES/train.py"
 NUM_WORKERS_PER_NODE = 1  # needed for local parallelism
 
 

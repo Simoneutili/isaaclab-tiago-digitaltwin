@@ -24,64 +24,73 @@ This work presents an architecture that:
 - **IsaacLabTiagoExtension/**: Integration components for NVIDIA Isaac Lab with the TIAGo simulation.
 
 ![Isaac Lab](./images/IsaacLabEnvs.jpg)
-
 ## Installation and Setup
 
-### 1. Install the ROS2 TIAGo Simulation Workspace
+### 1. Setup TIAGo ROS2 Gazebo Simulation
 
-Clone the repository and navigate to the workspace:
-  
-    cd ~/Repository_name/tiago_public_ws
+Before running any Isaac Lab scripts, you must set up and launch the TIAGo Gazebo simulation workspace.
 
+**Setting up the workspace:**
 
-Build and Source the Workspace
+The following commands are based on the official PAL Robotics ROS2 TIAGo simulation GitHub repository:
+```bash
+mkdir -p ~/tiago_public_ws/src
+cd ~/tiago_public_ws
+vcs import --input https://raw.githubusercontent.com/pal-robotics/tiago_tutorials/humble-devel/tiago_public.repos src
+```
 
-    colcon build --symlink-install
-    source ~/Repository_name/tiago_public_ws/install/setup.bash
+**Install dependencies using rosdep:**
+```bash
+sudo rosdep init
+rosdep update
+rosdep install --from-paths src -y --ignore-src
+```
 
-## 2. Run Gazebo TIAGo ROS2 Simulation
+**Source the environment and build:**
+```bash
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install
+```
 
-Launch the Gazebo simulation, which acts as a surrogate for the real robot:
+**Source the workspace:**
 
+Before running any application, source the workspace:
+```bash
+source ~/tiago_public_ws/install/setup.bash
+```
+
+**Launch Gazebo Simulation:**
+
+The Gazebo simulation acts as a surrogate for the real robot and must be running before executing Isaac Lab scripts:
 ```bash
 ros2 launch tiago_gazebo tiago_gazebo.launch.py is_public_sim:=True [arm_type:=no-arm]
 ```
 
-## 3. Activate the Bridge Node Between Isaac Lab and Gazebo
-
-Establish communication between the simulation and Isaac Lab by running:
-
-```bash
-ros2 run tiago_gazebo bridge_velocities_reset.py
-```
 
 ## Running the RL and Digital Twin Training
 
 _All commands below should be executed from inside the `IsaacLabTiagoExtension` directory._
 
-### 4. Hyperparameter Tuning Process
+### 2. Hyperparameter Tuning Process
 
 Run the hyperparameter tuning process using the provided configuration file and job class:
-
 ```bash
-python scripts/TIAGO_RL/tiago_RL/DigitalTwin/hyperparameter_tuning/tuner.py \
+python scripts/TIAGO_RL/DigitalTwin/hyperparameter_tuning/tuner.py \
     --run_mode local \
     --cfg_file TIAGO_RL/tiago_RL/DigitalTwin/hyperparameter_tuning/tiago_cfg_file.py \
     --cfg_class TiAGO_SB3SAC_JobCfg
 ```
 
-### 5. TensorBoard Metrics Visualization
+### 3. TensorBoard Metrics Visualization
 
 Launch TensorBoard to monitor training metrics:
-
 ```bash
 tensorboard --logdir logs/sb3/Isaac-DigitalTwin-TiAGO-v0
 ```
 
-### 6. Training the RL Agent
+### 4. Training the RL Agent
 
-Before training, pick the optimal set of hyperparameters and update the agent YAML file located in:
-
+Before training, select the optimal set of hyperparameters and update the agent YAML file located in:
 ```
 scripts/TIAGO_RL/tiago_RL/DigitalTwin/agents
 ```
@@ -90,24 +99,22 @@ scripts/TIAGO_RL/tiago_RL/DigitalTwin/agents
 
 **Training from Scratch:**
 
+You can choose your preferred RL algorithm (e.g., `train_ppo.py`, `train_sac.py`):
 ```bash
-python scripts/TIAGO_RL/tiago_RL/ISAACLAB_TEST/SB3/deploy.py --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 256
+python scripts/TIAGO_RL/DigitalTwin/SB3/train_ppo.py --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 256
 ```
 
 **Training with a Pretrained Model:**
-
 ```bash
-python TIAGO_RL/tiago_RL/ISAACLAB_TEST/SB3/pretrain.py --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 64 --headless --checkpoint_path /home/simone/IsaacLab/logs/sb3/Isaac-DigitalTwin-TiAGO-v0/best/model.zip
+python scripts/TIAGO_RL/DigitalTwin/SB3/pretrain.py --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 64 --headless --checkpoint_path /home/simone/IsaacLab/logs/sb3/Isaac-DigitalTwin-TiAGO-v0/best/model.zip
 ```
 
-### 7. Deploying the Trained Policy
+### 5. Deploying the Trained Policy
 
 After training, deploy the policy for real-time testing:
-
 ```bash
-python TIAGO_RL/tiago_RL/ISAACLAB_TEST/SB3/deploy.py --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 1
+python scripts/TIAGO_RL/DigitalTwin/SB3/deploy.py --task Isaac-DigitalTwin-TiAGO-v0 --num_envs 1
 ```
-
 ## 🛠️ Requirements and Setup
 
 The following software components were used during the development of this project. These represent the tested configuration; other versions might also be compatible but have not been explicitly validated.
@@ -125,6 +132,4 @@ The following software components were used during the development of this proje
 | **Gymnasium**         | 0.29.0         |
 | **Ray**               | 2.41.1         |
 | **ROS 2 Humble**      | Local          |
-
-Ensure you have these dependencies or equivalent versions installed before running the project.
 

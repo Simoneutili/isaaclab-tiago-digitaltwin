@@ -40,8 +40,8 @@ automatically, and can be easily found with with :file:`grok_cluster_with_kubect
 DOCKER_PREFIX = "/workspace/isaaclab/"
 BASE_DIR = os.path.expanduser("~")
 PYTHON_EXEC = "./isaaclab.sh -p"
-WORKFLOW = "TIAGO_RL/Tiago_RL/IsaacLabDT/SB3/train.py"
-# WORKFLOW = "TIAGO_RL/Tiago_RL/IsaacLabDT/RL_GAMES/train.py"
+WORKFLOW = "TIAGO_RL/DigitalTwin/SB3/train.py"
+# WORKFLOW = "TIAGO_RL/DigitalTwin/RL_GAMES/train.py"
 NUM_WORKERS_PER_NODE = 2  # needed for local parallelism
 
 

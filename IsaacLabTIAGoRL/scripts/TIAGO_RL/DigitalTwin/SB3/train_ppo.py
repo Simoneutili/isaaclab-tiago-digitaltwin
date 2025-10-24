@@ -65,7 +65,7 @@ from omni.isaac.lab.envs import (
 from omni.isaac.lab.utils.dict import print_dict
 from omni.isaac.lab.utils.io import dump_pickle, dump_yaml
 
-import Tiago_RL.IsaacLabDT # noqa: F401
+import DigitalTwin # noqa: F401
 from omni.isaac.lab_tasks.utils.hydra import hydra_task_config
 from omni.isaac.lab_tasks.utils.wrappers.sb3 import Sb3VecEnvWrapper, process_sb3_cfg
 
