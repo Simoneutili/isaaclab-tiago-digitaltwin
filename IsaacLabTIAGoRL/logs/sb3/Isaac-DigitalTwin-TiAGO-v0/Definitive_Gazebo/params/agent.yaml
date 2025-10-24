@@ -1,0 +1,19 @@
+policy: MlpPolicy
+seed: 42
+batch_size: 512
+buffer_size: 500000
+ent_coef: 0.006743832474927298
+gamma: 0.9047920457625807
+gradient_steps: 1
+learning_rate: 0.0002992158640183503
+tau: 0.05933988794195026
+train_freq: 1
+n_timesteps: 2000000.0
+policy_kwargs:
+  activation_fn: relu
+  net_arch:
+  - 256
+  - 256
+normalize_input: true
+normalize_value: true
+clip_obs: 10.0

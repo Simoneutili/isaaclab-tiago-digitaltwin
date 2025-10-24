@@ -37,4 +37,4 @@ modules = [
 use_online_index=true
 
 [[python.module]]
-name = "tiago_RL"
+name = "Tiago_RL"

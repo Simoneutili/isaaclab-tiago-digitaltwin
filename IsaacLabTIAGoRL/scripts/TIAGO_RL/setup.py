@@ -10,7 +10,7 @@ import os
 import platform
 import toml
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 # Obtain the extension data from the extension.toml file
 EXTENSION_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -62,19 +62,17 @@ EXTRAS_REQUIRE["all"] = list(set(EXTRAS_REQUIRE["all"]))
 
 # Installation operation
 setup(
-    name="tiago-reinforcement-learning",
+    name="DigitalTwin",
     author="Simone Utili",
-    maintainer="Isaac Lab Project Developers",
-    url=EXTENSION_TOML_DATA["package"]["repository"],
+    maintainer="Simone Utili",
     version=EXTENSION_TOML_DATA["package"]["version"],
     description=EXTENSION_TOML_DATA["package"]["description"],
-    keywords=EXTENSION_TOML_DATA["package"]["keywords"],
     include_package_data=True,
     python_requires=">=3.10",
     install_requires=INSTALL_REQUIRES,
     dependency_links=PYTORCH_INDEX_URL,
     extras_require=EXTRAS_REQUIRE,
-    packages=["tiago_RL"],
+    packages=find_packages(include=["DigitalTwin", "DigitalTwin.*"]),
     classifiers=[
         "Natural Language :: English",
         "Programming Language :: Python :: 3.10",
@@ -83,3 +81,4 @@ setup(
     ],
     zip_safe=False,
 )
+
