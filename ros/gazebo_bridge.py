@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Drives the arm of the Gazebo TIAGo with the joint velocities of the Isaac Lab digital twin.
+"""Drives the arm of the Gazebo TIAGo with the velocity reference of the Isaac Lab digital twin.
 
-Velocities received on /isaaclab_velocities are forwarded to the arm velocity controller. When none arrive
-for a second, the arm is switched to position control and sent back to the start pose of the Isaac Lab
-environment.
+The reference received on /reference_velocities is forwarded to the arm velocity controller, so the robot and
+the digital twin track the same command. When none arrives for a second, the arm is switched to position
+control and sent back to the start pose of the Isaac Lab environment.
 """
 
 import math
@@ -31,10 +31,10 @@ class GazeboBridge(Node):
         self._switch_client = self.create_client(SwitchController, "/controller_manager/switch_controller")
         self._active_controller = None
         self._last_msg_time = time.monotonic()
-        self.create_subscription(JointState, "/isaaclab_velocities", self._on_velocities, 10)
+        self.create_subscription(JointState, "/reference_velocities", self._on_reference, 10)
         self.create_timer(TIMEOUT_S, self._check_timeout)
 
-    def _on_velocities(self, msg: JointState) -> None:
+    def _on_reference(self, msg: JointState) -> None:
         self._last_msg_time = time.monotonic()
         if any(math.isnan(v) for v in msg.velocity):
             self.get_logger().warn("Ignoring a velocity command with NaN values.")

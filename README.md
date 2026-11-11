@@ -82,8 +82,9 @@ ros2 launch tiago_gazebo tiago_gazebo.launch.py is_public_sim:=True
 ros2 launch ros/gazebo_bridge.launch.py
 ```
 
-The bridge forwards `/isaaclab_velocities` to the arm of the Gazebo robot. When no velocities arrive for a
-second, it moves the arm back to the start pose of the Isaac Lab environment and holds it there.
+The bridge forwards `/reference_velocities` to the arm of the Gazebo robot, so it tracks the same command as
+the digital twin. When no reference arrives for a second, it moves the arm back to the start pose of the Isaac
+Lab environment and holds it there.
 
 ### 2. Training
 
