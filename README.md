@@ -11,7 +11,10 @@ sets the joint friction and the drive damping of the simulated arm so that its j
 measured ones. The reference robot is the Gazebo TIAGo (Sim2Sim), or any robot that publishes its joint states
 over ROS 2.
 
-![Framework](./images/SimtoSimFramework.jpg)
+<p align="center"><img src="./images/Real2SimArchitecture.jpg" alt="Real2Sim Digital Twin architecture" width="520"></p>
+
+*Architecture (Fig. 1 of the paper): a ROS 2 bridge node connects the standalone Isaac Lab application to the
+robot, where `ros2_control` handles actuation and state feedback.*
 
 ## How it works
 
