@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tiago_digital_twin"
+version = "0.1.0"
+description = "Real2Sim digital twin of the TIAGo arm in Isaac Lab: an RL agent tunes joint friction and damping online"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["stable-baselines3>=2.1"]
+
+[tool.setuptools]
+packages = ["tiago_digital_twin", "tiago_digital_twin.agents"]

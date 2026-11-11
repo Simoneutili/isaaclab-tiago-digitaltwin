@@ -1,0 +1,10 @@
+The TIAGo robot model in this folder comes from the public PAL Robotics ROS 2 packages.
+tiago.urdf was generated from the tiago_description xacro; the meshes are copied unchanged.
+
+  meshes/tiago_description        tiago_description 2.3.13        Creative Commons BY-NC-ND 3.0
+  meshes/pmb2_description         pmb2_description 3.0.31         Apache License 2.0
+  meshes/pal_gripper_description  pal_gripper_description 1.0.9   BSD
+
+Sources: https://github.com/pal-robotics/tiago_robot
+         https://github.com/pal-robotics/pmb2_robot
+         https://github.com/pal-robotics/pal_gripper
